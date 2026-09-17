@@ -1,0 +1,6 @@
+{
+  "name": "Beyond Sands Beach Retreat",
+  "description": "An architecturally silent coastal luxury retreat nestled along Kelva Beach, featuring suites, private verandahs, weddings, and concierge care.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
