@@ -24,6 +24,7 @@ import { BookingModal } from './components/BookingModal';
 import { DossierModal } from './components/DossierModal';
 import { AboutPage } from './components/AboutPage';
 import { StickyMobileBar } from './components/StickyMobileBar';
+import { ScrollToTop } from './components/ScrollToTop';
 
 export default function App() {
   // Page view state: 'home' | 'about'
@@ -192,6 +193,9 @@ export default function App() {
         isOpen={isDossierModalOpen}
         onClose={() => setIsDossierModalOpen(false)}
       />
+
+      {/* Bottom to Top Floating Scroll-Back Control */}
+      {!isBookingModalOpen && <ScrollToTop />}
 
       {/* Footer with Contact Details & Synchronized Links */}
       <Footer

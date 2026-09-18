@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 interface WeddingsSectionProps {
   onOpenDossier: () => void;
@@ -8,8 +8,18 @@ interface WeddingsSectionProps {
 export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
   onOpenDossier,
 }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const yWeddingBg = useTransform(scrollYProgress, [0, 1], ['-10%', '10%']);
+  const scaleWeddingBg = useTransform(scrollYProgress, [0, 1], [1.02, 1.12]);
+
   return (
     <motion.section
+      ref={sectionRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -17,13 +27,18 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
       className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#0f1c2e] text-white overflow-hidden"
       id="weddings"
     >
-      {/* Background Image & Overlays */}
-      <div
-        className="absolute inset-0 opacity-25 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVPS_XtV4I-QDIWAUEWt0Zpo02YZwLD0RYtxAPO-dkHe-8zo5y8uQgG2KhzRqB7DAWqHYi5DtVYBKtFzp6rog71kxifNONnu5HXZo55ROV0qPh_oP1P3v1755_waAFU063_DFJ5Qrp7R7TpMGlEt-Vq6K4dkOeWUJG4POxSijCyBBZo5DUyUX2dtZUlQXPFubwYDcXDjs0IF1Va_xnkkulyU9nodA1ZSF1YVr6lQ4mlyIoDBiQjoGY')`,
-        }}
-      ></div>
+      {/* Background Image with Smooth Parallax Float */}
+      <motion.div
+        style={{ y: yWeddingBg, scale: scaleWeddingBg }}
+        className="absolute -inset-x-0 -top-20 -bottom-20 w-full h-[130%] opacity-30 bg-cover bg-center pointer-events-none will-change-transform"
+      >
+        <div
+          className="w-full h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDVPS_XtV4I-QDIWAUEWt0Zpo02YZwLD0RYtxAPO-dkHe-8zo5y8uQgG2KhzRqB7DAWqHYi5DtVYBKtFzp6rog71kxifNONnu5HXZo55ROV0qPh_oP1P3v1755_waAFU063_DFJ5Qrp7R7TpMGlEt-Vq6K4dkOeWUJG4POxSijCyBBZo5DUyUX2dtZUlQXPFubwYDcXDjs0IF1Va_xnkkulyU9nodA1ZSF1YVr6lQ4mlyIoDBiQjoGY')`,
+          }}
+        />
+      </motion.div>
       <div className="absolute inset-0 bg-gradient-to-r from-[#0f1c2e] via-[#0f1c2e]/95 lg:via-[#0f1c2e]/90 to-[#0f1c2e]/70"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto">

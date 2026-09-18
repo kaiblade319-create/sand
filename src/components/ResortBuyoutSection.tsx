@@ -1,19 +1,32 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 export const ResortBuyoutSection: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const yGlow = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const yImage = useTransform(scrollYProgress, [0, 1], [25, -25]);
+
   return (
     <motion.section
+      ref={sectionRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
+      className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full overflow-hidden"
       id="estate-buyout"
     >
       <div className="bg-[#0f1c2e] text-white rounded-3xl p-7 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl border border-[#c0c8c8]/20">
-        {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[#346364]/20 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Subtle background glow with Parallax float */}
+        <motion.div
+          style={{ y: yGlow }}
+          className="absolute top-0 right-0 w-96 h-96 bg-[#346364]/25 rounded-full blur-3xl pointer-events-none will-change-transform"
+        />
 
         <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Description & Value Props */}
@@ -106,13 +119,14 @@ export const ResortBuyoutSection: React.FC = () => {
             </div>
           </motion.div>
 
-          {/* Right Column: Visual Preview */}
+          {/* Right Column: Visual Preview with Parallax Drift */}
           <motion.div
+            style={{ y: yImage }}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-5"
+            className="lg:col-span-5 will-change-transform"
           >
             <div className="rounded-2xl overflow-hidden border border-white/15 bg-white/5 shadow-2xl relative group">
               <img

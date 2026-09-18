@@ -67,12 +67,36 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   html, body {
     margin: 0;
     padding: 0;
     font-family: "DM Sans", sans-serif;
     background-color: #faf9f6;
     color: #1a1c1a;
+  }
+
+  ::selection {
+    background-color: #ffdea5;
+    color: #271900;
+  }
+
+  /* Custom Luxury Scrollbar */
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #faf9f6;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c0c8c8;
+    border-radius: 9999px;
+    border: 2px solid #faf9f6;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #755a26;
   }
 }
 

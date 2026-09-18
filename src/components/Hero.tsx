@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 interface HeroProps {
   checkIn: string;
@@ -62,13 +62,35 @@ export const Hero: React.FC<HeroProps> = ({
 
   const stayCalculation = calculateStay();
 
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+
+  // Parallax transform: gentle downward drift and subtle cinematic scale
+  const yHeroBg = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
+  const scaleHeroBg = useTransform(scrollYProgress, [0, 1], [1.02, 1.14]);
+  const opacityHeroContent = useTransform(scrollYProgress, [0, 0.85], [1, 0.8]);
+
   return (
     <section
-      className="relative w-full min-h-[90vh] sm:min-h-[880px] lg:min-h-[920px] flex flex-col justify-between -mt-20 pt-24 sm:pt-32 pb-10 sm:pb-16 px-3.5 sm:px-6 lg:px-8 overflow-hidden bg-cover bg-center"
-      style={{
-        backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdlLe7PrikZ66oGkJb3gjQ8AcOdTr6B04zeXQ1M-wPHwwz_F-ivIKMfGq6-q3dlmfHPsWUVHJ3h-tH4loayKuu4zjfHM7jrV0OY-tgi4ENLO5_f6u4HU8ITLrCxyVh_22zQcMzFDi4FKVsOIcPOWPyvCvsVsOl_TP88CF19TmWi9x-gkOzIXdwwTTJfv3mfqgkW9IwXwQNTyDK4hKccQqzc-tX_l0S-vI3Yaho5ug2aN81HAls7Xx3')`,
-      }}
+      ref={heroRef}
+      className="relative w-full min-h-[90vh] sm:min-h-[880px] lg:min-h-[920px] flex flex-col justify-between -mt-20 pt-24 sm:pt-32 pb-10 sm:pb-16 px-3.5 sm:px-6 lg:px-8 overflow-hidden"
     >
+      {/* Parallax Background Layer */}
+      <motion.div
+        style={{ y: yHeroBg, scale: scaleHeroBg }}
+        className="absolute -inset-x-0 -top-12 -bottom-24 w-full h-[120%] bg-cover bg-center pointer-events-none origin-top will-change-transform"
+      >
+        <div
+          className="w-full h-full bg-cover bg-center"
+          style={{
+            backgroundImage: `url('https://lh3.googleusercontent.com/aida-public/AB6AXuDdlLe7PrikZ66oGkJb3gjQ8AcOdTr6B04zeXQ1M-wPHwwz_F-ivIKMfGq6-q3dlmfHPsWUVHJ3h-tH4loayKuu4zjfHM7jrV0OY-tgi4ENLO5_f6u4HU8ITLrCxyVh_22zQcMzFDi4FKVsOIcPOWPyvCvsVsOl_TP88CF19TmWi9x-gkOzIXdwwTTJfv3mfqgkW9IwXwQNTyDK4hKccQqzc-tX_l0S-vI3Yaho5ug2aN81HAls7Xx3')`,
+          }}
+        />
+      </motion.div>
+
       {/* Gradients */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0f1c2e]/85 via-[#0f1c2e]/45 to-[#0f1c2e]/90 pointer-events-none"></div>
       <div className="absolute inset-0 bg-radial from-transparent via-black/20 to-black/60 pointer-events-none"></div>
@@ -107,6 +129,7 @@ export const Hero: React.FC<HeroProps> = ({
           },
         }}
         className="relative z-10 w-full max-w-5xl mx-auto my-auto text-center py-6 sm:py-12 px-1"
+        style={{ opacity: opacityHeroContent }}
       >
         <motion.div
           variants={{

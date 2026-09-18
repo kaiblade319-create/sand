@@ -231,58 +231,74 @@ export const GallerySection: React.FC = () => {
       {/* Visual Photo Grid with Layout Animation */}
       <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
         <AnimatePresence>
-          {filteredItems.map((item, index) => (
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.35 }}
-              whileHover={{ y: -6 }}
-              key={item.id}
-              onClick={() => setActiveLightboxIndex(index)}
-              className="group relative h-72 sm:h-80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#efeeeb] border border-[#e3e2e0]/60 cursor-pointer shadow-xs hover:shadow-xl transition-all duration-300"
-            >
-              {/* Image */}
-              <img
-                src={item.image}
-                alt={item.alt}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                loading="lazy"
-              />
+          {filteredItems.map((item, index) => {
+            // Dynamic Ken-Burns anchor points for organic cinematic variety
+            const origins = [
+              'origin-center',
+              'origin-top-left',
+              'origin-bottom-right',
+              'origin-top-right',
+              'origin-bottom-left',
+            ];
+            const originClass = origins[index % origins.length];
 
-              {/* Gradient Overlay for legibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
+            return (
+              <motion.div
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.35, delay: (index % 6) * 0.04 }}
+                whileHover={{ y: -6 }}
+                key={item.id}
+                onClick={() => setActiveLightboxIndex(index)}
+                className="group relative h-72 sm:h-80 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#efeeeb] border border-[#e3e2e0]/60 cursor-pointer shadow-xs hover:shadow-xl transition-all duration-300"
+              >
+                {/* Image with Ken-Burns Viewport Zoom & Cross-Fade */}
+                <motion.img
+                  src={item.image}
+                  alt={item.alt}
+                  initial={{ scale: 1.16, opacity: 0.65 }}
+                  whileInView={{ scale: 1.02, opacity: 1 }}
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+                  className={`w-full h-full object-cover ${originClass} group-hover:scale-108 transition-transform duration-700 ease-out will-change-transform`}
+                  loading="lazy"
+                />
 
-              {/* Top Category Badge */}
-              <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#0f1c2e] font-label-caps text-[10px] uppercase tracking-wider font-semibold shadow-xs">
-                  {item.subtitle || item.category}
-                </span>
-              </div>
+                {/* Gradient Overlay for legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity duration-300" />
 
-              {/* Top Right Expand Icon */}
-              <div className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
-                <span className="material-symbols-outlined text-[18px]">fullscreen</span>
-              </div>
-
-              {/* Bottom Caption */}
-              <div className="absolute bottom-0 left-0 right-0 p-5 z-10 text-white transform transition-transform duration-300">
-                <h3 className="font-headline-sm text-base sm:text-lg font-serif font-semibold text-white tracking-tight leading-snug">
-                  {item.title}
-                </h3>
-                {item.description && (
-                  <p className="mt-1 text-xs text-white/80 line-clamp-2 leading-relaxed">
-                    {item.description}
-                  </p>
-                )}
-                <div className="mt-2.5 flex items-center gap-1.5 text-[11px] font-label-caps uppercase tracking-wider text-[#ffdea5]">
-                  <span>Click to view full photo</span>
-                  <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                {/* Top Category Badge */}
+                <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
+                  <span className="px-2.5 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#0f1c2e] font-label-caps text-[10px] uppercase tracking-wider font-semibold shadow-xs">
+                    {item.subtitle || item.category}
+                  </span>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                {/* Top Right Expand Icon */}
+                <div className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-black/40 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
+                  <span className="material-symbols-outlined text-[18px]">fullscreen</span>
+                </div>
+
+                {/* Bottom Caption */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 z-10 text-white transform transition-transform duration-300">
+                  <h3 className="font-headline-sm text-base sm:text-lg font-serif font-semibold text-white tracking-tight leading-snug">
+                    {item.title}
+                  </h3>
+                  {item.description && (
+                    <p className="mt-1 text-xs text-white/80 line-clamp-2 leading-relaxed">
+                      {item.description}
+                    </p>
+                  )}
+                  <div className="mt-2.5 flex items-center gap-1.5 text-[11px] font-label-caps uppercase tracking-wider text-[#ffdea5]">
+                    <span>Click to view full photo</span>
+                    <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </motion.div>
 
@@ -341,13 +357,13 @@ export const GallerySection: React.FC = () => {
                 <span className="material-symbols-outlined text-[26px]">arrow_back</span>
               </motion.button>
 
-              {/* Main Lightbox Image */}
+              {/* Main Lightbox Image with Ken-Burns Cross-Fade Zoom */}
               <motion.div
                 key={currentLightboxItem.id}
-                initial={{ opacity: 0, scale: 0.96 }}
+                initial={{ opacity: 0, scale: 1.06 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="max-h-[68vh] sm:max-h-[72vh] max-w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-2xl"
               >
                 <img

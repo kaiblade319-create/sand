@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence, useScroll, useSpring } from 'motion/react';
 import { NAV_LINKS } from '../data';
 import { Logo } from './Logo';
 
@@ -16,6 +17,14 @@ export const Header: React.FC<HeaderProps> = ({
   currentView = 'home',
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  // Top-to-Bottom Luxury Scroll Progress Indicator
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 24,
+    restDelta: 0.001,
+  });
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -63,12 +72,18 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-[#faf9f6]/90 backdrop-blur-md border-b border-[#e3e2e0]/40 shadow-[0_1px_6px_rgba(15,28,46,0.03)] transition-all duration-300">
+    <header className="fixed top-0 left-0 w-full z-50 bg-[#faf9f6]/92 backdrop-blur-md border-b border-[#e3e2e0]/50 shadow-[0_2px_12px_rgba(15,28,46,0.03)] transition-all duration-300">
+      {/* Top-to-Bottom Animated Luxury Progress Bar */}
+      <motion.div
+        className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#755a26] via-[#346364] to-[#ffdea5] origin-left z-20"
+        style={{ scaleX }}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
         {/* Brand logo */}
         <button
           onClick={(e) => handleLinkClick(e, '#', 'Home')}
-          className="flex items-center text-left group cursor-pointer hover:opacity-95 transition-opacity"
+          className="flex items-center text-left group cursor-pointer hover:opacity-90 transition-opacity"
           data-path="home"
           type="button"
           aria-label="Beyond Sands Home"
@@ -81,9 +96,10 @@ export const Header: React.FC<HeaderProps> = ({
           {NAV_LINKS.filter((item) => item.href !== '#').map((link) => {
             const isStoryActive = link.label === 'Our Story' && currentView === 'about';
             return (
-              <a
+              <motion.a
                 key={link.label}
-                className={`font-label-caps text-xs uppercase transition-colors duration-200 py-1 tracking-[0.14em] cursor-pointer ${
+                whileHover={{ y: -1 }}
+                className={`font-label-caps text-xs uppercase transition-colors duration-200 py-1 tracking-[0.14em] cursor-pointer relative ${
                   isStoryActive
                     ? 'text-[#755a26] font-semibold border-b border-[#755a26]'
                     : 'text-[#404848] hover:text-[#0f1c2e]'
@@ -92,20 +108,23 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={(e) => handleLinkClick(e, link.href, link.label)}
               >
                 {link.label}
-              </a>
+              </motion.a>
             );
           })}
         </nav>
 
         {/* Header Actions & Mobile Hamburger */}
         <div className="flex items-center gap-2 sm:gap-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.03, y: -1 }}
+            whileTap={{ scale: 0.97 }}
             onClick={onOpenBooking}
             className="hidden sm:inline-flex items-center justify-center px-4 md:px-5 py-2.5 rounded-lg bg-[#0f1c2e] text-[#faf9f6] font-label-caps text-[11px] uppercase tracking-[0.18em] hover:bg-[#346364] transition-all duration-300 shadow-sm cursor-pointer"
           >
             Reserve Your Stay
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 0.92 }}
             aria-label="Toggle navigation menu"
             className="lg:hidden w-10 h-10 rounded-lg flex items-center justify-center text-[#1a1c1a] hover:bg-[#efeeeb] transition-colors focus:outline-none cursor-pointer"
             onClick={toggleMobileMenu}
@@ -114,45 +133,55 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="material-symbols-outlined text-[24px]">
               {mobileMenuOpen ? 'close' : 'menu'}
             </span>
-          </button>
+          </motion.button>
         </div>
       </div>
 
-      {/* Mobile Collapsible Menu Drawer (100% Matched with Quick Links) */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-[#ffffff]/98 backdrop-blur-xl border-b border-[#e3e2e0]/50 px-4 sm:px-6 py-6 transition-all duration-300 shadow-lg">
-          <div className="flex flex-col gap-2 max-w-lg mx-auto">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                className="font-label-caps text-sm uppercase text-[#1a1c1a] tracking-[0.16em] py-2.5 border-b border-[#e3e2e0]/40 hover:text-[#346364] transition-colors cursor-pointer"
-                href={link.href}
-                onClick={(e) => handleLinkClick(e, link.href, link.label)}
-              >
-                {link.label}
-              </a>
-            ))}
+      {/* Mobile Collapsible Menu Drawer with Smooth AnimatePresence */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden lg:hidden bg-[#ffffff]/98 backdrop-blur-xl border-b border-[#e3e2e0]/50 px-4 sm:px-6 py-6 shadow-xl"
+          >
+            <div className="flex flex-col gap-2 max-w-lg mx-auto">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.label}
+                  className="font-label-caps text-sm uppercase text-[#1a1c1a] tracking-[0.16em] py-2.5 border-b border-[#e3e2e0]/40 hover:text-[#346364] transition-colors cursor-pointer"
+                  href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href, link.label)}
+                >
+                  {link.label}
+                </a>
+              ))}
 
-            <div className="pt-3 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  closeMobileMenu();
-                  onOpenBooking();
-                }}
-                className="w-full py-3 text-center rounded-lg bg-[#0f1c2e] text-[#faf9f6] font-label-caps text-xs uppercase tracking-[0.18em] hover:bg-[#346364] transition-colors cursor-pointer"
-              >
-                Reserve Your Stay
-              </button>
-              <a
-                className="w-full py-3 text-center rounded-lg bg-[#efeeeb] text-[#1a1c1a] font-label-caps text-xs uppercase tracking-[0.18em] hover:bg-[#e9e8e5] transition-colors"
-                href="tel:+919923895055"
-              >
-                Call +91 99238 95055
-              </a>
+              <div className="pt-3 flex flex-col gap-3">
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    closeMobileMenu();
+                    onOpenBooking();
+                  }}
+                  className="w-full py-3 text-center rounded-lg bg-[#0f1c2e] text-[#faf9f6] font-label-caps text-xs uppercase tracking-[0.18em] hover:bg-[#346364] transition-colors cursor-pointer"
+                >
+                  Reserve Your Stay
+                </motion.button>
+                <a
+                  className="w-full py-3 text-center rounded-lg bg-[#efeeeb] text-[#1a1c1a] font-label-caps text-xs uppercase tracking-[0.18em] hover:bg-[#e9e8e5] transition-colors"
+                  href="tel:+919923895055"
+                >
+                  Call +91 99238 95055
+                </a>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
+

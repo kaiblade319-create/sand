@@ -1,28 +1,35 @@
-import React from 'react';
-import { motion } from 'motion/react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 interface SplitStatsShowcaseProps {
   onOpenBooking?: () => void;
 }
 
 export const SplitStatsShowcase: React.FC<SplitStatsShowcaseProps> = ({ onOpenBooking }) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+
+  const yVisual = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const yBadge = useTransform(scrollYProgress, [0, 1], [15, -15]);
+
   return (
     <motion.section
+      ref={sectionRef}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, ease: 'easeOut' }}
-      className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
+      className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full overflow-hidden"
       id="stats-showcase"
     >
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-        {/* Left Column: Framed Visual (Terracotta / Deep Navy Border) */}
+        {/* Left Column: Framed Visual with Parallax Float */}
         <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="lg:col-span-6"
+          style={{ y: yVisual }}
+          className="lg:col-span-6 will-change-transform"
         >
           <div className="relative p-3 sm:p-4 rounded-3xl bg-[#755a26]/10 border border-[#755a26]/20 shadow-md">
             <div className="aspect-[4/3] rounded-2xl overflow-hidden relative group">
@@ -34,10 +41,13 @@ export const SplitStatsShowcase: React.FC<SplitStatsShowcaseProps> = ({ onOpenBo
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
-              {/* Float Badge */}
-              <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#0f1c2e]/90 text-white font-label-caps text-[10px] tracking-wider uppercase backdrop-blur-sm border border-white/20 shadow-sm">
+              {/* Float Badge with Subtly Accelerated Parallax */}
+              <motion.div
+                style={{ y: yBadge }}
+                className="absolute top-4 left-4 px-3 py-1 rounded-full bg-[#0f1c2e]/90 text-white font-label-caps text-[10px] tracking-wider uppercase backdrop-blur-sm border border-white/20 shadow-sm"
+              >
                 Kelva Coastline • 19°42'N, 72°43'E
-              </div>
+              </motion.div>
 
               <div className="absolute bottom-4 left-4 right-4 text-white">
                 <span className="text-[#ffdea5] text-[11px] font-label-caps tracking-widest uppercase block mb-1">
