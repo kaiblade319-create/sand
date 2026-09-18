@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 interface WeddingsSectionProps {
   onOpenDossier: () => void;
@@ -8,7 +9,11 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
   onOpenDossier,
 }) => {
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
       className="relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#0f1c2e] text-white overflow-hidden"
       id="weddings"
     >
@@ -24,7 +29,13 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Editorial Narrative */}
-          <div className="lg:col-span-7 flex flex-col">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 flex flex-col"
+          >
             <span className="font-label-caps text-xs text-[#ffdea5] tracking-[0.24em] uppercase font-semibold">
               Weddings & Celebrations
             </span>
@@ -39,90 +50,102 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
             </p>
 
             {/* 4 Curated Offerings */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-10">
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                <span className="material-symbols-outlined text-[#ffdea5] text-[24px] shrink-0">
-                  wb_twilight
-                </span>
-                <div>
-                  <h4 className="font-label-md text-sm uppercase tracking-wider text-white font-medium">
-                    Beachfront Lawn Ceremonies
-                  </h4>
-                  <p className="mt-1 font-body-sm text-xs sm:text-sm text-[#dbdad7]">
-                    Open ocean horizon backdrops set against soft coastal sands.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                <span className="material-symbols-outlined text-[#ffdea5] text-[24px] shrink-0">
-                  restaurant_menu
-                </span>
-                <div>
-                  <h4 className="font-label-md text-sm uppercase tracking-wider text-white font-medium">
-                    Artisanal Pure-Veg & Jain Banquets
-                  </h4>
-                  <p className="mt-1 font-body-sm text-xs sm:text-sm text-[#dbdad7]">
-                    Exquisite multi-course sattvic and regional Maharashtrian
-                    delicacies.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                <span className="material-symbols-outlined text-[#ffdea5] text-[24px] shrink-0">
-                  key
-                </span>
-                <div>
-                  <h4 className="font-label-md text-sm uppercase tracking-wider text-white font-medium">
-                    Secluded 20-Key Buyout
-                  </h4>
-                  <p className="mt-1 font-body-sm text-xs sm:text-sm text-[#dbdad7]">
-                    Exclusive sovereignty over all rooms, pool, and grounds for
-                    up to 80 guests.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                <span className="material-symbols-outlined text-[#ffdea5] text-[24px] shrink-0">
-                  design_services
-                </span>
-                <div>
-                  <h4 className="font-label-md text-sm uppercase tracking-wider text-white font-medium">
-                    Bespoke Event Curator
-                  </h4>
-                  <p className="mt-1 font-body-sm text-xs sm:text-sm text-[#dbdad7]">
-                    Dedicated styling, lighting masters, and sound designers
-                    on-call.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.1 },
+                },
+              }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-10"
+            >
+              {[
+                {
+                  icon: 'wb_twilight',
+                  title: 'Beachfront Lawn Ceremonies',
+                  desc: 'Open ocean horizon backdrops set against soft coastal sands.',
+                },
+                {
+                  icon: 'restaurant_menu',
+                  title: 'Artisanal Pure-Veg & Jain Banquets',
+                  desc: 'Exquisite multi-course sattvic and regional Maharashtrian delicacies.',
+                },
+                {
+                  icon: 'key',
+                  title: 'Secluded 20-Key Buyout',
+                  desc: 'Exclusive sovereignty over all rooms, pool, and grounds for up to 80 guests.',
+                },
+                {
+                  icon: 'design_services',
+                  title: 'Bespoke Event Curator',
+                  desc: 'Dedicated styling, lighting masters, and sound designers on-call.',
+                },
+              ].map((offering, idx) => (
+                <motion.div
+                  key={idx}
+                  variants={{
+                    hidden: { opacity: 0, y: 15 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+                  }}
+                  whileHover={{ y: -3, backgroundColor: 'rgba(255,255,255,0.08)' }}
+                  className="flex items-start gap-4 p-4 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[#ffdea5] text-[24px] shrink-0">
+                    {offering.icon}
+                  </span>
+                  <div>
+                    <h4 className="font-label-md text-sm uppercase tracking-wider text-white font-medium">
+                      {offering.title}
+                    </h4>
+                    <p className="mt-1 font-body-sm text-xs sm:text-sm text-[#dbdad7]">
+                      {offering.desc}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
 
             {/* Actions */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-8 sm:mt-10">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="px-6 sm:px-8 py-3.5 rounded-lg bg-[#ffdea5] text-[#271900] font-label-caps text-[11px] sm:text-xs uppercase tracking-[0.18em] font-semibold hover:bg-[#e5c283] transition-colors shadow-lg text-center"
                 href="https://wa.me/919923895055?text=Hello%20Beyond%20Sands,%20I%20would%20like%20to%20inquire%20about%20a%20wedding%20or%20celebration%20buyout"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 Plan Your Celebration
-              </a>
-              <button
+              </motion.a>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={onOpenDossier}
                 className="px-6 sm:px-8 py-3.5 rounded-lg bg-transparent text-white font-label-caps text-[11px] sm:text-xs uppercase tracking-[0.18em] hover:bg-white/10 transition-colors border border-white/20 text-center cursor-pointer"
                 type="button"
               >
                 Download Wedding Dossier
-              </button>
+              </motion.button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Visual Stat Block */}
-          <div className="lg:col-span-5 flex flex-col gap-6 w-full">
-            <div className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5 flex flex-col gap-6 w-full"
+          >
+            <motion.div
+              whileHover={{ y: -4 }}
+              transition={{ duration: 0.25 }}
+              className="p-6 sm:p-8 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 shadow-2xl"
+            >
               <div className="flex items-baseline justify-between mb-4">
                 <span className="font-label-caps text-xs text-[#ffdea5] uppercase tracking-widest">
                   Sanctuary Capacity
@@ -153,10 +176,10 @@ export const WeddingsSection: React.FC<WeddingsSectionProps> = ({
                   </p>
                 </div>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

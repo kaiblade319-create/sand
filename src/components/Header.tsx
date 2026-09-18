@@ -1,11 +1,20 @@
 import React, { useState } from 'react';
 import { NAV_LINKS } from '../data';
+import { Logo } from './Logo';
 
 interface HeaderProps {
   onOpenBooking: () => void;
+  onNavigateToAbout?: () => void;
+  onNavigateToHome?: () => void;
+  currentView?: 'home' | 'about';
 }
 
-export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onOpenBooking,
+  onNavigateToAbout,
+  onNavigateToHome,
+  currentView = 'home',
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -16,34 +25,76 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
     setMobileMenuOpen(false);
   };
 
+  const handleLinkClick = (e: React.MouseEvent, href: string, label: string) => {
+    if (label === 'Our Story' || href === '#about') {
+      e.preventDefault();
+      closeMobileMenu();
+      if (onNavigateToAbout) {
+        onNavigateToAbout();
+      }
+      return;
+    }
+
+    if (label === 'Home' || href === '#') {
+      e.preventDefault();
+      closeMobileMenu();
+      if (onNavigateToHome) {
+        onNavigateToHome();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (currentView === 'about' && onNavigateToHome) {
+      e.preventDefault();
+      closeMobileMenu();
+      onNavigateToHome();
+      setTimeout(() => {
+        const targetId = href.replace('#', '');
+        const elem = document.getElementById(targetId);
+        if (elem) {
+          elem.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return;
+    }
+
+    closeMobileMenu();
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-[#faf9f6]/90 backdrop-blur-md border-b border-[#e3e2e0]/40 shadow-[0_1px_6px_rgba(15,28,46,0.03)] transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-        {/* Brand logo & tagline */}
-        <a
-          href="#"
-          className="flex flex-col items-start tracking-tight text-left group"
+        {/* Brand logo */}
+        <button
+          onClick={(e) => handleLinkClick(e, '#', 'Home')}
+          className="flex items-center text-left group cursor-pointer hover:opacity-95 transition-opacity"
           data-path="home"
+          type="button"
+          aria-label="Beyond Sands Home"
         >
-          <span className="font-headline-sm text-lg sm:text-xl tracking-[0.18em] uppercase text-[#0f1c2e] transition-colors">
-            BEYOND SANDS
-          </span>
-          <span className="font-label-caps text-[10px] sm:text-[11px] tracking-[0.22em] uppercase text-[#755a26] mt-0.5 font-medium">
-            KELVA BEACH • RETREAT
-          </span>
-        </a>
+          <Logo variant="horizontal" />
+        </button>
 
         {/* Desktop Nav Links (Synchronized with Quick Links) */}
         <nav className="hidden lg:flex items-center gap-5 xl:gap-7">
-          {NAV_LINKS.filter((item) => item.href !== '#').map((link) => (
-            <a
-              key={link.label}
-              className="font-label-caps text-xs uppercase text-[#404848] hover:text-[#0f1c2e] transition-colors duration-200 py-1 tracking-[0.14em]"
-              href={link.href}
-            >
-              {link.label}
-            </a>
-          ))}
+          {NAV_LINKS.filter((item) => item.href !== '#').map((link) => {
+            const isStoryActive = link.label === 'Our Story' && currentView === 'about';
+            return (
+              <a
+                key={link.label}
+                className={`font-label-caps text-xs uppercase transition-colors duration-200 py-1 tracking-[0.14em] cursor-pointer ${
+                  isStoryActive
+                    ? 'text-[#755a26] font-semibold border-b border-[#755a26]'
+                    : 'text-[#404848] hover:text-[#0f1c2e]'
+                }`}
+                href={link.href}
+                onClick={(e) => handleLinkClick(e, link.href, link.label)}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Header Actions & Mobile Hamburger */}
@@ -74,9 +125,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenBooking }) => {
             {NAV_LINKS.map((link) => (
               <a
                 key={link.label}
-                className="font-label-caps text-sm uppercase text-[#1a1c1a] tracking-[0.16em] py-2.5 border-b border-[#e3e2e0]/40 hover:text-[#346364] transition-colors"
+                className="font-label-caps text-sm uppercase text-[#1a1c1a] tracking-[0.16em] py-2.5 border-b border-[#e3e2e0]/40 hover:text-[#346364] transition-colors cursor-pointer"
                 href={link.href}
-                onClick={closeMobileMenu}
+                onClick={(e) => handleLinkClick(e, link.href, link.label)}
               >
                 {link.label}
               </a>

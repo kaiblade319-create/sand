@@ -51,9 +51,10 @@ export interface DestinationSpot {
 export interface GalleryItem {
   id: string;
   title: string;
-  category: 'grounds' | 'suites' | 'gatherings';
+  category: 'rooms' | 'amenities' | 'nature' | 'architecture' | string;
   subtitle: string;
+  description?: string;
   image: string;
   alt: string;
-  span: string;
+  span?: string;
 }

@@ -409,220 +409,173 @@ export const RoomDetailModal: React.FC<RoomDetailModalProps> = ({
                 </div>
               </div>
 
-              {/* 3 Package Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                {/* CLASSIC PACKAGE */}
-                <div className="bg-[#faf9f6] rounded-2xl p-5 border border-[#e3e2e0]/60 flex flex-col justify-between hover:border-[#346364]/40 transition-colors">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-label-caps text-xs tracking-wider uppercase font-bold text-[#0f1c2e]">
-                        CLASSIC
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-white text-[#755a26] font-label-caps text-[10px] uppercase font-semibold border border-[#e3e2e0]/40">
-                        Accommodation
-                      </span>
-                    </div>
-                    <p className="text-xs text-[#707978]">No Food Included</p>
-
-                    <div className="mt-4 pb-4 border-b border-[#e3e2e0]/40">
-                      <span className="font-label-caps text-[10px] text-[#707978] uppercase">
-                        Price Per Night
-                      </span>
-                      <div className="flex items-baseline gap-1 mt-0.5">
-                        <span className="text-2xl font-serif font-bold text-[#1a1c1a]">
-                          {room.packages?.[0]?.pricePerNight || room.price}
-                        </span>
-                        <span className="text-xs text-[#707978]">/ Night</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 space-y-2 text-xs text-[#404848]">
-                      <div className="flex justify-between">
-                        <span>{room.title}</span>
-                        <span className="font-medium text-[#1a1c1a]">
-                          {room.packages?.[0]?.pricePerNight || room.price}
-                        </span>
-                      </div>
-                      <div className="flex justify-between text-[#707978]">
-                        <span>Extra Bed</span>
-                        <span>
-                          {room.packages?.[0]?.extraBedNote ||
-                            (room.capacity.includes('3')
-                              ? 'Extra Bed ₹500 (up to 3 people)'
-                              : 'Extra Bed ₹500 (up to 4 people)')}
-                        </span>
-                      </div>
-                      <div className="pt-2 border-t border-[#e3e2e0]/30 flex justify-between text-[11px]">
-                        <span>Check-In: 12:00 PM</span>
-                        <span>Check-Out: 11:00 AM</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-3 border-t border-[#e3e2e0]/40">
-                    <a
-                      href={`https://wa.me/919923895055?text=${encodeURIComponent(
-                        `Hello Beyond Sands, I would like to book the CLASSIC package for ${room.title} (${
-                          room.packages?.[0]?.pricePerNight || room.price
-                        }/night).`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-[#0f1c2e] hover:bg-[#346364] text-white font-label-caps text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-1.5 transition-colors text-center font-medium"
+              {/* Package Cards */}
+              <div
+                className={`grid gap-5 ${
+                  (room.packages?.length || 3) === 2
+                    ? 'grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto'
+                    : 'grid-cols-1 md:grid-cols-3'
+                }`}
+              >
+                {(room.packages && room.packages.length > 0
+                  ? room.packages
+                  : [
+                      {
+                        id: 'classic',
+                        name: 'CLASSIC',
+                        badge: 'Accommodation',
+                        subtitle: 'No Food Included',
+                        pricePerNight: room.price,
+                        priceUnit: '/ Night',
+                        roomRateNote: `${room.title} ${room.price}`,
+                        extraBedNote: 'Extra Bed ₹500 (up to 4 people)',
+                        checkIn: '12:00 PM',
+                        checkOut: '11:00 AM',
+                        ctaText: 'Book Now',
+                      },
+                      {
+                        id: 'groups',
+                        name: 'GROUPS',
+                        badge: 'Per Person Package',
+                        subtitle: '4 Person Minimum',
+                        pricePerNight: '₹2,800',
+                        priceUnit: '/ Per Person',
+                        roomRateNote: `${room.title} ₹2,800 / person`,
+                        mealsIncluded: ['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'],
+                        inclusionsNote: '* Includes Resort & Pool Access',
+                        checkIn: '12:00 PM',
+                        checkOut: '11:00 AM',
+                        ctaText: 'Enquire Now',
+                      },
+                      {
+                        id: 'couple',
+                        name: 'COUPLE',
+                        badge: 'Couple Package',
+                        subtitle: 'For 2 Persons',
+                        pricePerNight: '₹7,000',
+                        priceUnit: '/ Night',
+                        roomRateNote: `${room.title} ₹7,000`,
+                        mealsIncluded: ['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'],
+                        inclusionsNote: '* Includes Resort & Pool Access',
+                        checkIn: '12:00 PM',
+                        checkOut: '11:00 AM',
+                        ctaText: 'Book Now',
+                      },
+                    ]
+                ).map((pkg) => {
+                  const isGroups = pkg.id === 'groups';
+                  return (
+                    <div
+                      key={pkg.id}
+                      className={`bg-[#faf9f6] rounded-2xl p-5 border flex flex-col justify-between transition-colors ${
+                        isGroups
+                          ? 'border-[#346364]/40 relative shadow-xs'
+                          : 'border-[#e3e2e0]/60 hover:border-[#346364]/40'
+                      }`}
                     >
-                      <span>Book Now</span>
-                      <span className="material-symbols-outlined text-[16px]">
-                        arrow_forward
-                      </span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* GROUPS PACKAGE */}
-                <div className="bg-[#faf9f6] rounded-2xl p-5 border border-[#346364]/40 relative flex flex-col justify-between shadow-xs">
-                  <div className="absolute -top-2.5 right-4 bg-[#346364] text-white px-2.5 py-0.5 rounded-full font-label-caps text-[9.5px] uppercase tracking-wider font-semibold">
-                    Popular for Groups
-                  </div>
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-label-caps text-xs tracking-wider uppercase font-bold text-[#0f1c2e]">
-                        GROUPS
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-white text-[#346364] font-label-caps text-[10px] uppercase font-semibold border border-[#346364]/20">
-                        Per Person Package
-                      </span>
-                    </div>
-                    <p className="text-xs text-[#707978]">
-                      {room.packages?.[1]?.subtitle ||
-                        (room.capacity.includes('3')
-                          ? '3 Person Minimum'
-                          : '4 Person Minimum')}
-                    </p>
-
-                    <div className="mt-4 pb-4 border-b border-[#e3e2e0]/40">
-                      <span className="font-label-caps text-[10px] text-[#707978] uppercase">
-                        Price Per Night
-                      </span>
-                      <div className="flex items-baseline gap-1 mt-0.5">
-                        <span className="text-2xl font-serif font-bold text-[#1a1c1a]">
-                          ₹2,800
-                        </span>
-                        <span className="text-xs text-[#707978]">/ Per Person</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 space-y-2 text-xs text-[#404848]">
-                      <div className="flex justify-between">
-                        <span>{room.title}</span>
-                        <span className="font-medium text-[#1a1c1a]">₹2,800 / person</span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'].map((meal, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2 py-0.5 rounded bg-white text-[#346364] text-[10.5px] font-medium border border-[#e3e2e0]/40"
-                          >
-                            ✓ {meal}
+                      {isGroups && (
+                        <div className="absolute -top-2.5 right-4 bg-[#346364] text-white px-2.5 py-0.5 rounded-full font-label-caps text-[9.5px] uppercase tracking-wider font-semibold">
+                          Popular for Groups
+                        </div>
+                      )}
+                      <div>
+                        <div className="flex items-center justify-between gap-2 mb-2">
+                          <span className="font-label-caps text-xs tracking-wider uppercase font-bold text-[#0f1c2e]">
+                            {pkg.name}
                           </span>
-                        ))}
-                      </div>
-                      <p className="text-[11px] text-[#755a26] font-medium pt-1">
-                        * Includes Resort & Pool Access
-                      </p>
-                      <div className="pt-2 border-t border-[#e3e2e0]/30 flex justify-between text-[11px]">
-                        <span>Check-In: 12:00 PM</span>
-                        <span>Check-Out: 11:00 AM</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-6 pt-3 border-t border-[#e3e2e0]/40">
-                    <a
-                      href={`https://wa.me/919923895055?text=${encodeURIComponent(
-                        `Hello Beyond Sands, I would like to inquire about the GROUPS per-person package for ${room.title} (₹2,800/person).`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-[#346364] hover:bg-[#4e7c7c] text-white font-label-caps text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-1.5 transition-colors text-center font-medium"
-                    >
-                      <span>Enquire Now</span>
-                      <span className="material-symbols-outlined text-[16px]">
-                        arrow_forward
-                      </span>
-                    </a>
-                  </div>
-                </div>
-
-                {/* COUPLE PACKAGE */}
-                <div className="bg-[#faf9f6] rounded-2xl p-5 border border-[#e3e2e0]/60 flex flex-col justify-between hover:border-[#346364]/40 transition-colors">
-                  <div>
-                    <div className="flex items-center justify-between gap-2 mb-2">
-                      <span className="font-label-caps text-xs tracking-wider uppercase font-bold text-[#0f1c2e]">
-                        COUPLE
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-white text-[#755a26] font-label-caps text-[10px] uppercase font-semibold border border-[#e3e2e0]/40">
-                        Couple Package
-                      </span>
-                    </div>
-                    <p className="text-xs text-[#707978]">For 2 Persons</p>
-
-                    <div className="mt-4 pb-4 border-b border-[#e3e2e0]/40">
-                      <span className="font-label-caps text-[10px] text-[#707978] uppercase">
-                        Price Per Night
-                      </span>
-                      <div className="flex items-baseline gap-1 mt-0.5">
-                        <span className="text-2xl font-serif font-bold text-[#1a1c1a]">
-                          {room.packages?.[2]?.pricePerNight || '₹7,000'}
-                        </span>
-                        <span className="text-xs text-[#707978]">/ Night</span>
-                      </div>
-                    </div>
-
-                    <div className="mt-4 space-y-2 text-xs text-[#404848]">
-                      <div className="flex justify-between">
-                        <span>{room.title}</span>
-                        <span className="font-medium text-[#1a1c1a]">
-                          {room.packages?.[2]?.pricePerNight || '₹7,000'}
-                        </span>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 pt-1">
-                        {['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'].map((meal, idx) => (
                           <span
-                            key={idx}
-                            className="px-2 py-0.5 rounded bg-white text-[#755a26] text-[10.5px] font-medium border border-[#e3e2e0]/40"
+                            className={`px-2 py-0.5 rounded-full bg-white font-label-caps text-[10px] uppercase font-semibold border ${
+                              isGroups
+                                ? 'text-[#346364] border-[#346364]/20'
+                                : 'text-[#755a26] border-[#e3e2e0]/40'
+                            }`}
                           >
-                            ✓ {meal}
+                            {pkg.badge}
                           </span>
-                        ))}
+                        </div>
+                        <p className="text-xs text-[#707978]">{pkg.subtitle}</p>
+
+                        <div className="mt-4 pb-4 border-b border-[#e3e2e0]/40">
+                          <span className="font-label-caps text-[10px] text-[#707978] uppercase">
+                            Price Per Night
+                          </span>
+                          <div className="flex items-baseline gap-1 mt-0.5">
+                            <span className="text-2xl font-serif font-bold text-[#1a1c1a]">
+                              {pkg.pricePerNight}
+                            </span>
+                            <span className="text-xs text-[#707978]">{pkg.priceUnit}</span>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 space-y-2 text-xs text-[#404848]">
+                          <div className="flex justify-between">
+                            <span>{room.title}</span>
+                            <span className="font-medium text-[#1a1c1a]">
+                              {pkg.roomRateNote.replace(`${room.title} `, '') || pkg.pricePerNight}
+                            </span>
+                          </div>
+
+                          {pkg.extraBedNote && (
+                            <div className="flex justify-between text-[#707978]">
+                              <span>Extra Bed</span>
+                              <span>{pkg.extraBedNote.replace('Extra Bed ', '')}</span>
+                            </div>
+                          )}
+
+                          {pkg.mealsIncluded && pkg.mealsIncluded.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 pt-1">
+                              {pkg.mealsIncluded.map((meal, idx) => (
+                                <span
+                                  key={idx}
+                                  className={`px-2 py-0.5 rounded bg-white text-[10.5px] font-medium border border-[#e3e2e0]/40 ${
+                                    isGroups ? 'text-[#346364]' : 'text-[#755a26]'
+                                  }`}
+                                >
+                                  ✓ {meal}
+                                </span>
+                              ))}
+                            </div>
+                          )}
+
+                          {pkg.inclusionsNote && (
+                            <p className="text-[11px] text-[#755a26] font-medium pt-1">
+                              {pkg.inclusionsNote}
+                            </p>
+                          )}
+
+                          <div className="pt-2 border-t border-[#e3e2e0]/30 flex justify-between text-[11px]">
+                            <span>Check-In: {pkg.checkIn}</span>
+                            <span>Check-Out: {pkg.checkOut}</span>
+                          </div>
+                        </div>
                       </div>
-                      <p className="text-[11px] text-[#755a26] font-medium pt-1">
-                        * Includes Resort & Pool Access
-                      </p>
-                      <div className="pt-2 border-t border-[#e3e2e0]/30 flex justify-between text-[11px]">
-                        <span>Check-In: 12:00 PM</span>
-                        <span>Check-Out: 11:00 AM</span>
+
+                      <div className="mt-6 pt-3 border-t border-[#e3e2e0]/40">
+                        <a
+                          href={`https://wa.me/919923895055?text=${encodeURIComponent(
+                            `Hello Beyond Sands, I would like to ${
+                              pkg.ctaText === 'Book Now' ? 'book' : 'inquire about'
+                            } the ${pkg.name} package for ${room.title} (${pkg.pricePerNight}${
+                              pkg.priceUnit.includes('Person') ? '/person' : '/night'
+                            }).`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-full py-2.5 rounded-xl text-white font-label-caps text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-1.5 transition-colors text-center font-medium ${
+                            isGroups
+                              ? 'bg-[#346364] hover:bg-[#4e7c7c]'
+                              : 'bg-[#0f1c2e] hover:bg-[#346364]'
+                          }`}
+                        >
+                          <span>{pkg.ctaText}</span>
+                          <span className="material-symbols-outlined text-[16px]">
+                            arrow_forward
+                          </span>
+                        </a>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="mt-6 pt-3 border-t border-[#e3e2e0]/40">
-                    <a
-                      href={`https://wa.me/919923895055?text=${encodeURIComponent(
-                        `Hello Beyond Sands, I would like to book the COUPLE all-inclusive package for ${room.title} (${
-                          room.packages?.[2]?.pricePerNight || '₹7,000'
-                        }/night for 2 persons).`
-                      )}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full py-2.5 rounded-xl bg-[#0f1c2e] hover:bg-[#346364] text-white font-label-caps text-xs uppercase tracking-[0.14em] flex items-center justify-center gap-1.5 transition-colors text-center font-medium"
-                    >
-                      <span>Book Now</span>
-                      <span className="material-symbols-outlined text-[16px]">
-                        arrow_forward
-                      </span>
-                    </a>
-                  </div>
-                </div>
+                  );
+                })}
               </div>
             </div>
 

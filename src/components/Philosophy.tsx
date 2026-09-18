@@ -1,6 +1,10 @@
 import React from 'react';
 
-export const Philosophy: React.FC = () => {
+interface PhilosophyProps {
+  onNavigateToAbout?: () => void;
+}
+
+export const Philosophy: React.FC<PhilosophyProps> = ({ onNavigateToAbout }) => {
   return (
     <section
       className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
@@ -192,6 +196,32 @@ export const Philosophy: React.FC = () => {
             </span>
           </div>
         </div>
+      </div>
+
+      {/* Story Callout */}
+      <div className="mt-12 p-8 sm:p-10 rounded-3xl bg-white border border-[#e3e2e0]/60 shadow-xs flex flex-col md:flex-row items-center justify-between gap-6">
+        <div className="max-w-2xl">
+          <span className="font-label-caps text-xs text-[#755a26] uppercase tracking-[0.2em] font-semibold">
+            Our Story
+          </span>
+          <h3 className="font-serif text-2xl text-[#1a1c1a] mt-1">
+            Born from a love for coastal serenity and authentic hospitality.
+          </h3>
+          <p className="text-sm text-[#556060] mt-2 leading-relaxed">
+            Discovered by our founder Priya during a break from city life, Beyond Sands has grown
+            from a single villa into a sanctuary honoring natural beauty, local heritage, and genuine human connection.
+          </p>
+        </div>
+        {onNavigateToAbout && (
+          <button
+            onClick={onNavigateToAbout}
+            type="button"
+            className="px-6 py-3 rounded-xl bg-[#0f1c2e] hover:bg-[#346364] text-white font-label-caps text-xs uppercase tracking-[0.16em] font-medium transition-all shrink-0 flex items-center gap-2 cursor-pointer shadow-sm"
+          >
+            <span>Read Our Full Story</span>
+            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        )}
       </div>
     </section>
   );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Logo } from './Logo';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -88,6 +89,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         >
           <span className="material-symbols-outlined text-[18px]">close</span>
         </button>
+
+        <Logo variant="horizontal" className="mb-4" />
 
         <div className="flex items-center gap-2 mb-2">
           <span className="w-2 h-2 rounded-full bg-[#346364] animate-pulse"></span>

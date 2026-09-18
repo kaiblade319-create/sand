@@ -7,13 +7,14 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '#' },
-  { label: 'Rooms & Villas', href: '#accommodations-section' },
-  { label: 'The Retreat', href: '#philosophy' },
+  { label: 'Why Us', href: '#why-beyond-sands' },
+  { label: 'Rooms & Rates', href: '#accommodations-section' },
+  { label: 'Coastal Dining', href: '#dining' },
+  { label: 'Estate Buyout', href: '#estate-buyout' },
   { label: 'Celebrations', href: '#weddings' },
-  { label: 'Chronicles', href: '#gallery' },
-  { label: 'Around Kelva', href: '#destination-guide' },
-  { label: 'FAQs', href: '#faqs' },
-  { label: 'Contact', href: '#arrival' },
+  { label: 'Gallery', href: '#gallery' },
+  { label: 'Drive & Contact', href: '#arrival' },
+  { label: 'Our Story', href: '#about' },
 ];
 
 export const ACCOMMODATIONS: Accommodation[] = [
@@ -306,9 +307,22 @@ export const ACCOMMODATIONS: Accommodation[] = [
     size: '650 sq ft',
     bed: 'Multiple Beds (2 King + 2 Single)',
     capacity: 'Up to 8 Guests',
+    unitsAvailable: '1 Units Available',
     description:
       'Spacious multi-bed accommodation perfect for families or groups of friends traveling together.',
+    aboutParagraphs: [
+      'Designed for shared experiences and group comfort, our Family Dorm offers extensive space without compromising on luxury. Equipped with multiple comfortable beds, a cozy seating area, and modern amenities, it is the ideal choice for family reunions or getaways with close friends. Large windows look out to the surrounding palms, keeping you connected to the coastal environment.',
+      'Our spaces are constructed using localized eco-friendly materials and detailed craftsmanship. Large windows let in plenty of natural daylight, while blackout drapes ensure a restful night. High-fidelity fixtures and customized premium bedding invite you to slow down and embrace coastal time.',
+    ],
     highlights: ['Family Friendly', 'Multiple Beds', 'Spacious Seating', 'Garden View'],
+    features: [
+      'Family Friendly',
+      'Multiple Beds',
+      'Spacious Seating',
+      'Garden View',
+      'Connecting Layout',
+      'Kid Friendly Amenities',
+    ],
     amenities: ['Free WiFi', 'Breakfast', 'AC', 'Private Parking', 'Room Service'],
     moreAmenitiesCount: 1,
     allAmenities: [
@@ -317,9 +331,44 @@ export const ACCOMMODATIONS: Accommodation[] = [
       'AC',
       'Private Parking',
       'Room Service',
-      'Luggage Storage & Lockers',
-      'Multiple Power Outlets',
-      'Spacious Lounge Seating',
+      'Extra Beds Available',
+    ],
+    galleryImages: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCcOPFx_kuzHUMZC6w2Yni7rkNgNwYgVCG5L2hiBFDokGNdp_dCu4vvBKEyEOKN1Uxq74BB_YiI5RmbCjqnXUuGuuHqLkz8-deOm3sPMI5mYVXhljOB9G1qK6dKTZfbLTUTeCuSMI8N5on1dRbl7aPZ4R5bsmbtXEQbBFb3qQRF5bcXnoGPBFjewT5U3044StL33LXuwjWZyAQSICCI62DapkZDWYDzBCxWUHHHsd6AXeyPyU6v1910',
+      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1200&auto=format&fit=crop',
+    ],
+    packages: [
+      {
+        id: 'classic',
+        name: 'CLASSIC',
+        badge: 'Accommodation',
+        subtitle: 'No Food Included',
+        pricePerNight: '₹6,500',
+        priceUnit: '/ Night',
+        roomRateNote: 'Family Dorm ₹6,500',
+        extraBedNote: 'Extra Bed ₹500 (up to 8 people)',
+        checkIn: '12:00 PM',
+        checkOut: '11:00 AM',
+        ctaText: 'Book Now',
+      },
+      {
+        id: 'groups',
+        name: 'GROUPS',
+        badge: 'Per Person Package',
+        subtitle: '8 Person Minimum',
+        pricePerNight: '₹2,800',
+        priceUnit: '/ Per Person',
+        roomRateNote: 'Family Dorm ₹2,800 / person',
+        mealsIncluded: ['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'],
+        inclusionsNote: '* Includes Resort & Pool Access',
+        checkIn: '12:00 PM',
+        checkOut: '11:00 AM',
+        ctaText: 'Enquire Now',
+      },
     ],
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuCcOPFx_kuzHUMZC6w2Yni7rkNgNwYgVCG5L2hiBFDokGNdp_dCu4vvBKEyEOKN1Uxq74BB_YiI5RmbCjqnXUuGuuHqLkz8-deOm3sPMI5mYVXhljOB9G1qK6dKTZfbLTUTeCuSMI8N5on1dRbl7aPZ4R5bsmbtXEQbBFb3qQRF5bcXnoGPBFjewT5U3044StL33LXuwjWZyAQSICCI62DapkZDWYDzBCxWUHHHsd6AXeyPyU6v1910',
@@ -336,9 +385,22 @@ export const ACCOMMODATIONS: Accommodation[] = [
     size: '480 sq ft',
     bed: 'Multiple Beds (King + 2 Single)',
     capacity: 'Up to 6 Guests',
+    unitsAvailable: '2 Units Available',
     description:
       'A spacious family room surrounded by lush garden views, ideal for families or groups of up to 6 guests.',
+    aboutParagraphs: [
+      'The Garden View Family Room is a generously sized retreat nestled within our tropical garden setting. Thoughtfully arranged for families and groups, it combines the serenity of garden views with ample space for everyone to relax comfortably. Natural light pours through large windows, illuminating the warm coastal interiors, while the private access to the gardens makes it a perfect base for morning walks and outdoor leisure.',
+      'Our spaces are constructed using localized eco-friendly materials and detailed craftsmanship. Large windows let in plenty of natural daylight, while blackout drapes ensure a restful night. High-fidelity fixtures and customized premium bedding invite you to slow down and embrace coastal time.',
+    ],
     highlights: ['Family Friendly', 'Garden View', 'Multiple Beds', 'Private Verandah'],
+    features: [
+      'Family Friendly',
+      'Garden View',
+      'Multiple Beds',
+      'Private Verandah',
+      'Work Desk',
+      'Direct Garden Access',
+    ],
     amenities: ['Free WiFi', 'Breakfast', 'AC', 'Private Parking', 'Room Service'],
     moreAmenitiesCount: 2,
     allAmenities: [
@@ -347,9 +409,61 @@ export const ACCOMMODATIONS: Accommodation[] = [
       'AC',
       'Private Parking',
       'Room Service',
-      'Wardrobe & Safe',
-      'Family Dining Nook',
-      'Electric Tea Station',
+      'Tea/Coffee Maker',
+      'Extra Beds Available',
+    ],
+    galleryImages: [
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuC1GDp5_CaX_3ECMkuyuYpNBYqeA8Q42lZOV_48_3Dveu71NbxOzTcBH0HGjh95vtT5a3Qy7EEV-f4R2VCVMNEgHgQrTeWWTeuDxjZoMsn46YsByNGAN-b0sALODDOJtsu7EJpr6y5gG1jaH7TgeZCaqw9pDICS-0UAJoKFC3kZ3BnwH7JclTy8-T6d9V1eGXBf5NYG4kq5Lc9_kBBbBk-AqCP74eeiHQfUaCPsm77pIlvwxpr4K_D0',
+      'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1566665797739-1674de7a421a?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=1200&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?q=80&w=1200&auto=format&fit=crop',
+    ],
+    packages: [
+      {
+        id: 'classic',
+        name: 'CLASSIC',
+        badge: 'Accommodation',
+        subtitle: 'No Food Included',
+        pricePerNight: '₹6,000',
+        priceUnit: '/ Night',
+        roomRateNote: 'Garden View Family Room ₹6,000',
+        extraBedNote: 'Extra Bed ₹500 (up to 6 people)',
+        checkIn: '12:00 PM',
+        checkOut: '11:00 AM',
+        ctaText: 'Book Now',
+      },
+      {
+        id: 'groups',
+        name: 'GROUPS',
+        badge: 'Per Person Package',
+        subtitle: '6 Person Minimum',
+        pricePerNight: '₹2,800',
+        priceUnit: '/ Per Person',
+        roomRateNote: 'Garden View Family Room ₹2,800 / person',
+        mealsIncluded: ['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'],
+        inclusionsNote: '* Includes Resort & Pool Access',
+        checkIn: '12:00 PM',
+        checkOut: '11:00 AM',
+        ctaText: 'Enquire Now',
+      },
+      {
+        id: 'couple',
+        name: 'COUPLE',
+        badge: 'Couple Package',
+        subtitle: 'For 2 Persons',
+        pricePerNight: '₹7,500',
+        priceUnit: '/ Night',
+        roomRateNote: 'Garden View Family Room ₹7,500',
+        mealsIncluded: ['Lunch', 'Hi-Tea', 'Dinner', 'Breakfast'],
+        inclusionsNote: '* Includes Resort & Pool Access',
+        checkIn: '12:00 PM',
+        checkOut: '11:00 AM',
+        ctaText: 'Book Now',
+      },
     ],
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuC1GDp5_CaX_3ECMkuyuYpNBYqeA8Q42lZOV_48_3Dveu71NbxOzTcBH0HGjh95vtT5a3Qy7EEV-f4R2VCVMNEgHgQrTeWWTeuDxjZoMsn46YsByNGAN-b0sALODDOJtsu7EJpr6y5gG1jaH7TgeZCaqw9pDICS-0UAJoKFC3kZ3BnwH7JclTy8-T6d9V1eGXBf5NYG4kq5Lc9_kBBbBk-AqCP74eeiHQfUaCPsm77pIlvwxpr4K_D0',
@@ -397,44 +511,205 @@ export const DESTINATION_SPOTS: DestinationSpot[] = [
 ];
 
 export const GALLERY_ITEMS: GalleryItem[] = [
+  // 1. Rooms
   {
-    id: 'gal-1',
-    title: 'The Plunge Pool at Blue Hour',
-    category: 'grounds',
-    subtitle: 'Atmosphere',
+    id: 'gal-room-1',
+    title: 'Garden View Verandah Suite',
+    category: 'rooms',
+    subtitle: 'Rooms',
+    description:
+      'Spacious room opening onto a private balcony surrounded by coconut palms and lush foliage.',
     image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuC1GDp5_CaX_3ECMkuyuYpNBYqeA8Q42lZOV_48_3Dveu71NbxOzTcBH0HGjh95vtT5a3Qy7EEV-f4R2VCVMNEgHgQrTeWWTeuDxjZoMsn46YsByNGAN-b0sALODDOJtsu7EJpr6y5gG1jaH7TgeZCaqw9pDICS-0UAJoKFC3kZ3BnwH7JclTy8-T6d9V1eGXBf5NYG4kq5Lc9_kBBbBk-AqCP74eeiHQfUaCPsm77pIlvwxpr4K_D0',
-    alt: 'Reflective saltwater plunge pool surrounded by architectural sandstone pavers and modern minimalist deck loungers in twilight illumination at Beyond Sands Kelva.',
-    span: 'sm:col-span-2 lg:col-span-7',
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuApaC2PHjDZNAXvC94mxKc2Y9mULXoyhO38tcp5oIMmtmreqljZhffrh26wL9IWQqQdhrrFoLrR7U1qiKBmX2-69HC-aew5xG3UJpY-wfO-LZFp60gEkbk6k-LuOO2FslqqqxSbCsHPUX8nAr6l82gpegrWWV8GWatJG9chfeGP1457iKfRWvByPwL5fj3mG8IHh6Bynin3jtwwCy30tixqZsNdiPphCJ2GyEostURwzUhsEn1vafJf',
+    alt: 'Garden View Room at Beyond Sands with private verandah overlooking coconut palms',
+    span: 'sm:col-span-2 lg:col-span-2',
   },
   {
-    id: 'gal-2',
-    title: 'Linen, Stone & Morning Light',
-    category: 'suites',
-    subtitle: 'Interiors',
+    id: 'gal-room-2',
+    title: 'Pool View Luxury Balcony',
+    category: 'rooms',
+    subtitle: 'Rooms',
+    description:
+      'Direct panoramic vistas of our shimmering swimming pool and sun loungers from your private balcony.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuD6OX__ariicg5oGHm_roWasQ193HsCrGE9-eZDCwqIyu-TE1-nCY7IrX--t2GMqXtzg3BGA6eXVchJNox6QsQvavG8OABrUwbkOKemrHNT46BzZ_btm5XMYxJDU50W5NToQLpu2xiCQyYfoC0rQ_Lun1e-FwwPhLpiV9_9kZQdy3ZEnpagHt4xEQ_RzDxmlIVOJbwXh014EF0ZHBjz2SVeDv87iro0R9Wip8fTL36WkTCfCT8ytf3A',
+    alt: 'Pool View Room with sun patio and pool reflection',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-room-3',
+    title: 'Couple Sanctuary Room',
+    category: 'rooms',
+    subtitle: 'Rooms',
+    description:
+      'Romantic ambiance, premium plush bedding, and private balcony designed for serene retreats.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuCdAgF1EWeA5eeXi83vufemDELokt6cIa-zHur7FIECQztynYBb-Zu5kVWOnVDZqfUNt1_CdI-sbi4jYIthfCAJ3tPSnoMSBhElNiKJ_gY9r85LpJnjTIQuL3WP_g5VnVrY-9zR3dkdEe51iuz_-Oaz3hakF3wTAqnTGMNs-xHuxUL3oRZzBUk97d1DD1FLaaobT83p21aVDdg_IgRqf3Nx9n7tmTGpbvMx63htukBLUVlyGNwGoyt8',
+    alt: 'Romantic Couple Room with intimate coastal setup',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-room-4',
+    title: 'Family Dormitory & Lounge',
+    category: 'rooms',
+    subtitle: 'Rooms',
+    description:
+      '650 sq ft multi-bed accommodation crafted for family reunions and close gatherings of friends.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuCcOPFx_kuzHUMZC6w2Yni7rkNgNwYgVCG5L2hiBFDokGNdp_dCu4vvBKEyEOKN1Uxq74BB_YiI5RmbCjqnXUuGuuHqLkz8-deOm3sPMI5mYVXhljOB9G1qK6dKTZfbLTUTeCuSMI8N5on1dRbl7aPZ4R5bsmbtXEQbBFb3qQRF5bcXnoGPBFjewT5U3044StL33LXuwjWZyAQSICCI62DapkZDWYDzBCxWUHHHsd6AXeyPyU6v1910',
-    alt: 'Close up architectural detail of rumpled Belgian raw linen bed sheets, morning sunbeam casting palm leaf shadows on limestone wall inside a luxury Kelva suite.',
-    span: 'sm:col-span-2 lg:col-span-5',
+    alt: 'Spacious Family Dorm with multiple beds and lounge space',
+    span: 'sm:col-span-2 lg:col-span-2',
   },
+
+  // 2. Amenities
   {
-    id: 'gal-3',
-    title: 'The Suru & Coconut Grove Walk',
-    category: 'grounds',
-    subtitle: 'Sanctuary Grounds',
+    id: 'gal-amenity-1',
+    title: 'Shimmering Infinity Pool',
+    category: 'amenities',
+    subtitle: 'Pool Oasis',
+    description:
+      'Immaculate, crystal-clear swimming pool with dedicated shallow section and teakwood sun loungers.',
     image:
-      'https://lh3.googleusercontent.com/aida-public/AB6AXuDKUBAePrLk8Gxw-nzELWPvQBOlI3Ueb9EgDGrAAC5JtapJ9m6HBhsS9inOxaJOY7lI06eBFaxQrDw3A3CzJ1YSc6OZXpMx6zryveBWpQM9s7iVUArt54YRV8gUC8mEfr3wVRMAlzI45x2KwMzCHe4nEuiYjXyizojTC_dgidL_o_doem6I1UO8AzVnxK4ImzZnKyWb-aTfw_GJhdfBkq4omTtliknbMO8-ojczbO-Rd2ttt5FqEzy8',
-    alt: 'Serene stone pathway winding through a dense natural grove of coconut palms and fragrant frangipani blossoms heading toward the quiet Kelva beachfront.',
-    span: 'sm:col-span-2 lg:col-span-5',
+      'https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Resort infinity pool surrounded by sun loungers and palms',
+    span: 'sm:col-span-2 lg:col-span-2',
   },
   {
-    id: 'gal-4',
-    title: 'Twilight Communal Banquets',
-    category: 'gatherings',
-    subtitle: 'Gastronomy',
+    id: 'gal-amenity-3',
+    title: 'Shaded Verandahs & Tea Nooks',
+    category: 'amenities',
+    subtitle: 'Amenities',
+    description:
+      'Quiet corners and rustic wooden benches for slow morning tea and unhurried reading.',
+    image:
+      'https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Quiet verandah seating with garden views',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+
+  // 2.5 Dining & Purity
+  {
+    id: 'gal-dining-1',
+    title: 'Authentic Coastal Surmai Rava Fry & Solkadhi',
+    category: 'dining',
+    subtitle: 'Fresh Catch',
+    description:
+      'Crispy rava-coated Surmai caught fresh by local Kelva fishermen, paired with freshly churned kokum solkadhi.',
+    image:
+      'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Authentic coastal Surmai rava fry served hot with garnish',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-dining-2',
+    title: '100% Strict Jain & Pure Veg Thali Care',
+    category: 'dining',
+    subtitle: 'Pure Veg & Jain',
+    description:
+      'Dedicated vegetarian kitchen with zero root vegetables (no onion/garlic), cooked in pristine separate utensils.',
+    image:
+      'https://images.unsplash.com/photo-1546833999-b9f581a1996d?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Traditional wholesome Pure Veg and Jain Thali meal',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-dining-3',
+    title: 'Poolside Sundowners & Charcoal Barbecue',
+    category: 'dining',
+    subtitle: 'Evenings',
+    description:
+      'Chilled mocktails, coconut water, and sizzling skewers under the evening sky by the illuminated pool.',
+    image:
+      'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Poolside barbecue and evening refreshments',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-dining-4',
+    title: 'Artisanal Open-Air Dining Pavilion',
+    category: 'dining',
+    subtitle: 'Dining Ambience',
+    description:
+      'Romantic open-air dining pavilion bathed in gentle candlelight with the sea breeze rustling through palm fronds.',
     image:
       'https://lh3.googleusercontent.com/aida-public/AB6AXuCZAxuanRWujZaNlr7aAXrgTb2KwnsRkMjKR3Zw8IoeJVAyB9AbvSj-hMFutBw0FJZ3vlb1i7YSdiuPr2mbRdXcSxFnuIhtUIrpXzxx8ib5rNBvQNiMfvVpGTo0vLGH7XlWqpY1ygK-WXEsU6yibFltry7CRVBeQYcU-Le7DsZquys8EmS-MmqBmrr3bCBt7uF3pS7OWnSjhRJxwISNPPe90HqxdLlCEGiBzEocKZEKPOSFEK9_PQey',
-    alt: 'An intimate wooden dining table dressed with brass tableware, artisanal ceramic plates, and glowing taper candles arranged under swaying palms for a coastal dinner.',
-    span: 'sm:col-span-2 lg:col-span-7',
+    alt: 'Artisanal outdoor dining table set with warm candlelight under palms',
+    span: 'sm:col-span-2 lg:col-span-2',
+  },
+
+  // 3. Nature
+  {
+    id: 'gal-nature-1',
+    title: 'Kelva Beach Golden Sunset',
+    category: 'nature',
+    subtitle: 'Nature',
+    description:
+      'A gentle 5-minute stroll leads to wide, tranquil sands and the dramatic Arabian Sea twilight.',
+    image:
+      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Golden sunset over tranquil waters of Kelva Beach',
+    span: 'sm:col-span-2 lg:col-span-2',
+  },
+  {
+    id: 'gal-nature-2',
+    title: 'Whispering Suru Pine Pathway',
+    category: 'nature',
+    subtitle: 'Nature',
+    description:
+      'Shaded natural corridor of coastal casuarina trees guiding guests straight to the shoreline.',
+    image:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDKUBAePrLk8Gxw-nzELWPvQBOlI3Ueb9EgDGrAAC5JtapJ9m6HBhsS9inOxaJOY7lI06eBFaxQrDw3A3CzJ1YSc6OZXpMx6zryveBWpQM9s7iVUArt54YRV8gUC8mEfr3wVRMAlzI45x2KwMzCHe4nEuiYjXyizojTC_dgidL_o_doem6I1UO8AzVnxK4ImzZnKyWb-aTfw_GJhdfBkq4omTtliknbMO8-ojczbO-Rd2ttt5FqEzy8',
+    alt: 'Suru pine trail through whispering trees to Kelva Beach',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-nature-3',
+    title: 'Lush Coconut Palm Canopy',
+    category: 'nature',
+    subtitle: 'Nature',
+    description:
+      'Dozens of towering native coconut palms creating cooling dappled shade across the resort property.',
+    image:
+      'https://images.unsplash.com/photo-1509233725247-49e657c54213?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Lush coconut palm canopy with sunlight streaming through fronds',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+
+  // 4. Architecture
+  {
+    id: 'gal-arch-1',
+    title: 'Coastal Earthy Architecture',
+    category: 'architecture',
+    subtitle: 'Architecture',
+    description:
+      'Minimalist design built with localized eco-friendly materials, terracotta tones, and breezy verandas.',
+    image:
+      'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Architectural resort exterior featuring natural wood and stone textures',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-arch-2',
+    title: 'Stone Walkways & Courtyard',
+    category: 'architecture',
+    subtitle: 'Architecture',
+    description:
+      'Carefully laid sandstone pavers winding between suites, gardens, and communal event zones.',
+    image:
+      'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Tropical stone walkways and courtyard architecture',
+    span: 'sm:col-span-1 lg:col-span-1',
+  },
+  {
+    id: 'gal-arch-3',
+    title: 'Celebration Lawns & Pavilion',
+    category: 'architecture',
+    subtitle: 'Architecture',
+    description:
+      'Expansive manicured open lawn ready for intimate destination weddings, birthdays, and sunset galas.',
+    image:
+      'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=1200&auto=format&fit=crop',
+    alt: 'Manicured outdoor celebration lawn and open pavilion',
+    span: 'sm:col-span-2 lg:col-span-2',
   },
 ];

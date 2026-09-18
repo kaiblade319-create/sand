@@ -1,9 +1,17 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { DESTINATION_SPOTS } from '../data';
 
 export const DestinationGuide: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 bg-[#f4f3f1]/50 w-full px-4 sm:px-6 lg:px-8" id="destination-guide">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className="py-16 sm:py-20 lg:py-24 bg-[#f4f3f1]/50 w-full px-4 sm:px-6 lg:px-8"
+      id="destination-guide"
+    >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 sm:mb-12 gap-6">
           <div className="max-w-3xl">
@@ -20,30 +28,50 @@ export const DestinationGuide: React.FC = () => {
             </p>
           </div>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             href={`https://wa.me/919923895055?text=${encodeURIComponent(
               "Hi Beyond Sands! I'd like to explore local attractions around Kelva during my stay. Can you help arrange transport or a guide?"
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="self-start md:self-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#e3e2e0] text-[#0f1c2e] hover:bg-[#0f1c2e] hover:text-white font-label-caps text-xs uppercase tracking-[0.14em] font-medium transition-all shadow-xs"
+            className="self-start md:self-auto inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white border border-[#e3e2e0] text-[#0f1c2e] hover:bg-[#0f1c2e] hover:text-white font-label-caps text-xs uppercase tracking-[0.14em] font-medium transition-colors shadow-xs cursor-pointer"
           >
             <span className="material-symbols-outlined text-[18px] text-[#346364]">chat</span>
             <span>Plan Local Itinerary</span>
-          </a>
+          </motion.a>
         </div>
 
         {/* 4-Card Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { staggerChildren: 0.1 },
+            },
+          }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
           {DESTINATION_SPOTS.map((spot) => {
             const whatsappMessage = encodeURIComponent(
               `Hi Beyond Sands! I'd like to explore local attractions around Kelva (${spot.title}) during my stay. Can you help arrange transport or a guide?`
             );
 
             return (
-              <div
+              <motion.div
                 key={spot.id}
-                className="bg-white p-6 rounded-2xl flex flex-col justify-between shadow-xs hover:shadow-md transition-all duration-300 border border-[#e3e2e0]/40 group"
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+                }}
+                whileHover={{ y: -6, boxShadow: '0 12px 28px -8px rgba(15, 28, 46, 0.12)' }}
+                transition={{ duration: 0.25 }}
+                className="bg-white p-6 rounded-2xl flex flex-col justify-between shadow-xs transition-colors border border-[#e3e2e0]/40 group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -81,11 +109,11 @@ export const DestinationGuide: React.FC = () => {
                     </span>
                   </a>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

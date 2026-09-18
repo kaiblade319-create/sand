@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 interface Review {
   id: string;
@@ -53,7 +54,14 @@ const REVIEWS: Review[] = [
 
 export const ReviewsSection: React.FC = () => {
   return (
-    <section className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full bg-[#f4f3f1]/30 rounded-3xl" id="reviews">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
+      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full bg-[#f4f3f1]/30 rounded-3xl"
+      id="reviews"
+    >
       <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-10 sm:mb-12 gap-6">
         <div>
           <span className="font-label-caps text-xs text-[#755a26] tracking-[0.24em] uppercase font-semibold">
@@ -68,7 +76,11 @@ export const ReviewsSection: React.FC = () => {
         </div>
 
         {/* Aggregate Ratings Card */}
-        <div className="bg-white px-6 py-4 rounded-2xl border border-[#e3e2e0]/60 shadow-xs flex items-center gap-5 shrink-0">
+        <motion.div
+          whileHover={{ y: -3 }}
+          transition={{ duration: 0.2 }}
+          className="bg-white px-6 py-4 rounded-2xl border border-[#e3e2e0]/60 shadow-xs flex items-center gap-5 shrink-0"
+        >
           <div className="text-center">
             <span className="font-serif text-3xl sm:text-4xl text-[#1a1c1a] font-bold block">
               4.8
@@ -87,15 +99,33 @@ export const ReviewsSection: React.FC = () => {
             </div>
             <p className="text-[#707978]">Kelva Beach, Palghar</p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Reviews Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: { staggerChildren: 0.12 },
+          },
+        }}
+        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+      >
         {REVIEWS.map((review) => (
-          <div
+          <motion.div
             key={review.id}
-            className="bg-white p-6 sm:p-7 rounded-2xl border border-[#e3e2e0]/60 shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.45 } },
+            }}
+            whileHover={{ y: -6, boxShadow: '0 12px 28px -8px rgba(15, 28, 46, 0.12)' }}
+            transition={{ duration: 0.25 }}
+            className="bg-white p-6 sm:p-7 rounded-2xl border border-[#e3e2e0]/60 shadow-xs transition-colors flex flex-col justify-between"
           >
             <div>
               {/* Rating stars & badge */}
@@ -128,9 +158,9 @@ export const ReviewsSection: React.FC = () => {
               </div>
               <span className="text-[#707978] text-[11px]">{review.date}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };

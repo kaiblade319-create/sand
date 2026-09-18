@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 
 interface RouteGuide {
   origin: string;
@@ -10,38 +11,49 @@ interface RouteGuide {
 
 const ROUTES: RouteGuide[] = [
   {
-    origin: 'From Mumbai (Western Suburbs)',
+    origin: 'From Borivali / Western Express Highway',
     distance: '75 km',
-    time: '2 hours',
-    route: 'Western Express Highway → NH48 via Dahisar Toll → Turn left at Manor / Mastan Naka towards Palghar & Kelva Beach Road.',
+    time: '90–105 Mins',
+    route: 'Western Express Highway → NH48 via Dahisar Toll → Turn left at Manor / Mastan Naka directly onto Palghar-Kelva Beach Road. Fast & smooth highway drive.',
     icon: 'directions_car',
+  },
+  {
+    origin: 'From Bandra, BKC & South Mumbai',
+    distance: '95 km',
+    time: '2 hr 10 min',
+    route: 'Direct via Coastal Road / WEH to NH48 → Smooth 4-lane expressway past Vasai & Virar to Manor exit.',
+    icon: 'navigation',
   },
   {
     origin: 'From Thane & Navi Mumbai',
     distance: '82 km',
-    time: '2 hr 15 min',
-    route: 'Ghodbunder Road → Join NH48 at Fountain Hotel → Continue past Manor to Palghar-Kelva coastal route.',
+    time: '1 hr 50 min',
+    route: 'Ghodbunder Road → Join NH48 at Fountain Hotel → Continue north past Manor to Palghar-Kelva coastal route.',
     icon: 'alt_route',
   },
   {
     origin: 'From Gujarat (Vapi / Surat)',
     distance: '90 km / 185 km',
     time: '1.5 hr / 3 hr',
-    route: 'Direct South on NH48 → Exit right at Manor towards Palghar town and Kelve coastline.',
-    icon: 'navigation',
+    route: 'Direct South on NH48 → Exit right at Manor towards Palghar town and peaceful Kelva coastline.',
+    icon: 'directions_car',
   },
   {
     origin: 'By Western Railway Train',
     distance: '4.5 km from station',
-    time: '10–12 min drive',
-    route: 'Board Dahanu/Palghar local from Churchgate/Borivali or Express trains to Palghar. Alight at Kelve Road or Palghar station.',
+    time: '10 min local auto',
+    route: 'Board Dahanu/Palghar local or express train from Borivali/Andheri. Alight at Kelve Road or Palghar station.',
     icon: 'train',
   },
 ];
 
 export const ArrivalSection: React.FC = () => {
   return (
-    <section
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.7, ease: 'easeOut' }}
       className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full"
       id="arrival"
     >
@@ -61,7 +73,10 @@ export const ArrivalSection: React.FC = () => {
             </p>
 
             {/* Address Banner */}
-            <div className="mt-6 p-4 rounded-2xl bg-[#f4f3f1] border border-[#e3e2e0]/60 flex items-start gap-4">
+            <motion.div
+              whileHover={{ y: -2 }}
+              className="mt-6 p-4 rounded-2xl bg-[#f4f3f1] border border-[#e3e2e0]/60 flex items-start gap-4 transition-all"
+            >
               <div className="w-10 h-10 rounded-xl bg-[#346364] text-white flex items-center justify-center shrink-0 shadow-xs">
                 <span className="material-symbols-outlined text-[20px]">
                   pin_drop
@@ -80,14 +95,31 @@ export const ArrivalSection: React.FC = () => {
                   <span>Free On-Site Gated Parking</span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Route Cards */}
-            <div className="mt-6 space-y-3">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: { staggerChildren: 0.08 },
+                },
+              }}
+              className="mt-6 space-y-3"
+            >
               {ROUTES.map((item, idx) => (
-                <div
+                <motion.div
                   key={idx}
-                  className="p-4 rounded-xl bg-white border border-[#e3e2e0]/50 shadow-xs hover:border-[#346364]/40 transition-colors flex items-start gap-3.5"
+                  variants={{
+                    hidden: { opacity: 0, y: 12 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+                  }}
+                  whileHover={{ y: -2, borderColor: 'rgba(52, 99, 100, 0.4)' }}
+                  className="p-4 rounded-xl bg-white border border-[#e3e2e0]/50 shadow-xs transition-colors flex items-start gap-3.5"
                 >
                   <div className="w-9 h-9 rounded-lg bg-[#efeeeb] text-[#346364] flex items-center justify-center shrink-0 mt-0.5">
                     <span className="material-symbols-outlined text-[18px]">
@@ -107,38 +139,51 @@ export const ArrivalSection: React.FC = () => {
                       {item.route}
                     </p>
                   </div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
 
           {/* Action buttons */}
           <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0f1c2e] text-white font-label-caps text-xs uppercase tracking-[0.14em] hover:bg-[#346364] transition-colors shadow-sm"
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#0f1c2e] text-white font-label-caps text-xs uppercase tracking-[0.14em] hover:bg-[#346364] transition-colors shadow-sm cursor-pointer"
               href="https://maps.google.com/?q=Beyond+Sands+Resort+Opposite+Shitladevi+temple+Kelve+Palghar+401404"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="material-symbols-outlined text-[18px]">map</span>
               <span>Open in Google Maps</span>
-            </a>
+            </motion.a>
 
-            <a
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#efeeeb] text-[#1a1c1a] font-label-caps text-xs uppercase tracking-[0.14em] hover:bg-[#e3e2e0] transition-colors border border-[#e3e2e0]/60"
+            <motion.a
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-[#efeeeb] text-[#1a1c1a] font-label-caps text-xs uppercase tracking-[0.14em] hover:bg-[#e3e2e0] transition-colors border border-[#e3e2e0]/60 cursor-pointer"
               href="https://wa.me/919923895055?text=Hello%20Beyond%20Sands,%20can%20you%20help%20arrange%20station%20pickup%20from%20Kelve%20Road%20station?"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="material-symbols-outlined text-[18px] text-[#346364]">local_taxi</span>
               <span>Request Station Pickup</span>
-            </a>
+            </motion.a>
           </div>
         </div>
 
         {/* Right: WhatsApp Concierge Card */}
-        <div className="lg:col-span-5">
-          <div className="bg-[#f4f3f1] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm flex flex-col justify-between h-full border border-[#e3e2e0]/40">
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="lg:col-span-5"
+        >
+          <motion.div
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+            className="bg-[#f4f3f1] rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-sm flex flex-col justify-between h-full border border-[#e3e2e0]/40"
+          >
             <div>
               <div className="flex items-center justify-between mb-6">
                 <span className="px-3 py-1 rounded-full bg-[#346364]/10 text-[#346364] font-label-caps text-[11px] uppercase tracking-wider font-semibold">
@@ -192,7 +237,9 @@ export const ArrivalSection: React.FC = () => {
             </div>
 
             <div className="mt-8 pt-6 border-t border-[#e3e2e0]/30">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className="w-full py-3.5 sm:py-4 rounded-xl bg-[#346364] text-white font-label-caps text-xs uppercase tracking-[0.18em] flex items-center justify-center gap-3 hover:bg-[#4e7c7c] transition-colors shadow-md text-center font-medium"
                 href="https://wa.me/919923895055?text=Hello%20Beyond%20Sands,%20I%20would%20like%20to%20reserve%20a%20stay"
                 target="_blank"
@@ -202,11 +249,11 @@ export const ArrivalSection: React.FC = () => {
                   chat
                 </span>
                 <span>Connect on WhatsApp</span>
-              </a>
+              </motion.a>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };

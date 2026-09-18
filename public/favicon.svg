@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cf9f65" />
+      <stop offset="50%" stop-color="#be8e56" />
+      <stop offset="100%" stop-color="#a87a42" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#faf9f6"/>
+  <!-- Gold Spiral Monogram -->
+  <g transform="translate(29, 32) scale(0.32)">
+    <path
+      d="M -18, -48 C 8, -50 24, -38 24, -20 C 24, -5 12, 8 -6, 18 C -22, 26 -32, 40 -32, 56 C -32, 78 -12, 94 12, 94 C 34, 94 52, 78 52, 54 C 52, 32 34, 18 10, 18 C -8, 18 -22, 32 -22, 50 C -22, 64 -10, 74 4, 74 C 16, 74 26, 64 26, 52 C 26, 42 18, 36 8, 36"
+      fill="none"
+      stroke="url(#favGold)"
+      stroke-width="7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </g>
+  <!-- Seagulls in Flight -->
+  <path d="M 44 19 C 47 16 51 15 55 17 C 52 19 51 22 50 25 C 48 23 46 21 44 19 Z" fill="#132b45"/>
+  <path d="M 52 23 C 54 20 57 19 60 21 C 58 23 57 26 56 29 C 54 27 53 25 52 23 Z" fill="#132b45"/>
+</svg>

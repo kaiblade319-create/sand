@@ -1,4 +1,5 @@
 import React from 'react';
+import { Logo } from './Logo';
 
 interface DossierModalProps {
   isOpen: boolean;
@@ -28,6 +29,8 @@ export const DossierModal: React.FC<DossierModalProps> = ({
         >
           <span className="material-symbols-outlined text-[18px]">close</span>
         </button>
+
+        <Logo variant="horizontal" className="mb-4" />
 
         <span className="font-label-caps text-xs text-[#755a26] uppercase tracking-widest font-semibold">
           Curated Events • 2025/2026 Season

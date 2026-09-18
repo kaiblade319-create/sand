@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 270" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Authentic Warm Bronze / Sand Gold -->
+    <linearGradient id="brandGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cf9f65" />
+      <stop offset="50%" stop-color="#be8e56" />
+      <stop offset="100%" stop-color="#a87a42" />
+    </linearGradient>
+  </defs>
+
+  <!-- Golden Coastal Monogram Emblem (Interlocking S / B Shell Spiral) -->
+  <g transform="translate(230, 72) scale(1.05)">
+    <!-- Main Outer Fluid Stroke -->
+    <path
+      d="M -18, -48 
+         C 8, -50 24, -38 24, -20 
+         C 24, -5 12, 8 -6, 18 
+         C -22, 26 -32, 40 -32, 56 
+         C -32, 78 -12, 94 12, 94 
+         C 34, 94 52, 78 52, 54 
+         C 52, 32 34, 18 10, 18 
+         C -8, 18 -22, 32 -22, 50 
+         C -22, 64 -10, 74 4, 74 
+         C 16, 74 26, 64 26, 52 
+         C 26, 42 18, 36 8, 36"
+      fill="none"
+      stroke="url(#brandGold)"
+      stroke-width="7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <!-- Delicate Upper Inner Arch (giving the double-line B/S crest form) -->
+    <path
+      d="M -16, -44 
+         C -26, -44 -34, -32 -34, -18 
+         C -34, -4 -22, 8 -4, 16 
+         C 12, 24 22, 34 26, 48"
+      fill="none"
+      stroke="url(#brandGold)"
+      stroke-width="5.5"
+      stroke-linecap="round"
+      opacity="0.9"
+    />
+  </g>
+
+  <!-- Coastal Birds (Seagulls in Flight) -->
+  <g fill="#132b45">
+    <!-- Bird 1 (Upper Left in Flight) -->
+    <path d="M 334 116 C 341 107 352 102 365 105 C 358 113 354 121 350 128 C 344 123 338 119 334 116 Z" />
+    <path d="M 350 126 C 356 128 364 126 370 122 C 363 131 356 135 348 136 C 349 132 350 128 350 126 Z" />
+
+    <!-- Bird 2 (Lower Right Gliding) -->
+    <path d="M 368 122 C 375 113 386 108 398 114 C 392 121 388 130 384 139 C 378 133 373 127 368 122 Z" />
+    <path d="M 384 136 C 390 139 398 138 405 134 C 397 144 389 148 380 150 C 382 145 383 140 384 136 Z" />
+  </g>
+
+  <!-- Primary Typography: BEYOND SANDS -->
+  <text
+    x="230"
+    y="190"
+    text-anchor="middle"
+    fill="#132b45"
+    font-family="'Bodoni Moda', 'Playfair Display', Didot, 'Cinzel', Georgia, serif"
+    font-size="34"
+    font-weight="600"
+    letter-spacing="5.5"
+  >
+    BEYOND SANDS
+  </text>
+
+  <!-- Horizontal Divider Line matching width of text -->
+  <line
+    x1="64"
+    y1="205"
+    x2="396"
+    y2="205"
+    stroke="#132b45"
+    stroke-width="1.8"
+    stroke-linecap="round"
+  />
+
+  <!-- Tagline: HOTELS & RESORTS -->
+  <text
+    x="230"
+    y="228"
+    text-anchor="middle"
+    fill="#132b45"
+    font-family="'Bodoni Moda', 'Playfair Display', Didot, 'Cinzel', Georgia, serif"
+    font-size="13.5"
+    font-weight="500"
+    letter-spacing="8.5"
+  >
+    HOTELS &amp; RESORTS
+  </text>
+</svg>
